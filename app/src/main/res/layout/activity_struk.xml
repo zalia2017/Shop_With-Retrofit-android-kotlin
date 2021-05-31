@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".Struk">
+
+    <RelativeLayout
+        android:id="@+id/checkOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Check Out"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="30sp"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkOut"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/nama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="Nama     :"/>
+        <TextView
+            android:id="@+id/txtnama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/nama"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:text=" Nama"/>
+
+        <TextView
+            android:id="@+id/telp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nama"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="No.Telp :"/>
+        <TextView
+            android:id="@+id/txtTelp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/telp"
+            android:layout_below="@+id/txtnama"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"
+            android:text=" No.Telp"/>
+
+        <TextView
+            android:id="@+id/alamat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/telp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="Alamat  :"/>
+        <TextView
+            android:id="@+id/txtAlamat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/alamat"
+            android:layout_below="@+id/txtTelp"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"
+            android:text=" Alamat"/>
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/garis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="--------------------------------------------------------------------------------------------------"/>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/garis"
+        android:text="Detail Transaksi"/>
+    <RelativeLayout
+        android:id="@+id/label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/garis"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="3dp">
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <TableRow>
+                <TextView
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="20dp"
+                    android:textStyle="bold"
+                    android:text="NO"/>
+                <TextView
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.4"
+                    android:textStyle="bold"
+                    android:text="NAMA PRODUK"/>
+                <TextView
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.2"
+                    android:textStyle="bold"
+                    android:text="HARGA PRODUK"/>
+                <TextView
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.2"
+                    android:textStyle="bold"
+                    android:text="QTY"/>
+                <TextView
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.3"
+                    android:textStyle="bold"
+                    android:text="TOTAL"/>
+
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <TableRow>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_cart"
+                    android:layout_span="6"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </TableRow>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <TableRow
+                android:weightSum="1">
+                <TextView
+                    android:layout_span="3"
+                    android:layout_weight="0.2"
+                    android:text="Total"/>
+                <TextView
+                    android:id="@+id/tvTotalProduct"
+                    android:layout_weight="0.2"
+                    android:gravity="right"
+                    android:text="2"/>
+                <TextView
+                    android:id="@+id/tvTotalHarga"
+                    android:layout_weight="0.1"
+                    android:gravity="right"
+                    android:text="20000"/>
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="BAYAR"/>
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>

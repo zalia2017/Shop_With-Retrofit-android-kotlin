@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llMain"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tvNo"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:gravity="center"
+        tools:text="No" />
+    <TextView
+        android:id="@+id/tvProduct"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:layout_weight="0.3"
+        android:gravity="center"
+        tools:text="Product" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:layout_weight="0.2"
+        android:gravity="right"
+        tools:text="Price" />
+
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:layout_weight="0.2"
+        tools:text="Total" />
+    <TextView
+        android:id="@+id/tvGTotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:layout_weight="0.3"
+        android:gravity="center"
+        tools:text="gTotal" />
+
+
+</LinearLayout>
