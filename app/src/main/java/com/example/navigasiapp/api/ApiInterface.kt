@@ -9,8 +9,7 @@ import retrofit2.http.*
 interface ApiInterface {
     @FormUrlEncoded
     @POST("login")
-    fun login(
-        @Field("email") email:String,
+    fun login(@Field("email") email:String,
         @Field("password") password:String
     ): Call<LoginResponse>
 

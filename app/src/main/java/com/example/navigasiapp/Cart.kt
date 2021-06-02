@@ -1,5 +1,6 @@
 package com.example.navigasiapp
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -41,14 +42,19 @@ class Cart : AppCompatActivity() {
 
             var apiInterface: ApiInterface = ApiClient().getApiClient()!!.create(ApiInterface::class.java)
             var requestCall: Call<JsonObject> = apiInterface.getCartsByUser("Bearer "+token)
+            var progressDialog: ProgressDialog = ProgressDialog(this@Cart)
+            progressDialog.setMessage("Loading")
+            progressDialog.show();
             requestCall.enqueue(object: Callback<JsonObject> {
-                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    progressDialog.dismiss()
                     Log.d("gagal", t.toString())
                 }
 
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 //                    Log.d("category log", response.body().toString())
+                    progressDialog.dismiss()
                     val myJson = response.body()
                     val myData = myJson!!.getAsJsonArray("data")
 
@@ -104,27 +110,7 @@ class Cart : AppCompatActivity() {
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         actionBar!!.setTitle("Keranjang Belanja")
 
-//        sharedPref = getSharedPreferences("SharePref", Context.MODE_PRIVATE)
-//
-//        var idUser = sharedPref.getInt("idUser", 0)
-//
-//        val databaseHandler: DatabaseHandler_bk = DatabaseHandler_bk(this)
-//        val cardList: ArrayList<CartModel> = databaseHandler.viewCartsByUser(idUser)
-//        myAdapter = cartAdapter(this)
-//        myAdapter!!.setData(cardList)
-//        var totalItem: Int = 0
-//        var totalHargaPerItem: Int = 0
-//        var grandTotal: Int = 0
-//        cardList.forEach {
-//            totalHargaPerItem = (it.totalProduct)*(it.priceofProduct)
-//            totalItem += it.totalProduct
-//            grandTotal += totalHargaPerItem
-//        }
-//        tvTotalProduct.text = totalItem.toString()
-//        tvTotalHarga.text = grandTotal.toString()
-//
-//        rv_cart.layoutManager = LinearLayoutManager(this)
-//        rv_cart.adapter = myAdapter
+
     }
 
     fun goToDataPembeli(){

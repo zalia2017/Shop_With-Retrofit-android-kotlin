@@ -1,5 +1,6 @@
 package com.example.navigasiapp
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -44,6 +45,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var progressDialog: ProgressDialog = ProgressDialog(this@MainActivity)
+        progressDialog.setMessage("Loading")
+        progressDialog.show();
+
         val SDK_INT = Build.VERSION.SDK_INT
         if (SDK_INT > 8) {
             val policy = StrictMode.ThreadPolicy.Builder()
@@ -53,20 +59,20 @@ class MainActivity : AppCompatActivity() {
             sharedPref = getSharedPreferences("SharePref", Context.MODE_PRIVATE)
             token = sharedPref.getString("token", "")!!
 
-            var apiInterface: ApiInterface = ApiClient().getApiClient()!!.create(ApiInterface::class.java)
-            var requestCall: Call<JsonObject> = apiInterface.getCategories("Bearer "+token)
+            var apiInterface: ApiInterface = ApiClient().getApiClient()!!
+                    .create(ApiInterface::class.java)
+            var requestCall: Call<JsonObject> = apiInterface
+                    .getCategories("Bearer "+token)
             requestCall.enqueue(object: Callback<JsonObject>{
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-
                     Log.d("gagal", t.toString())
                 }
 
-                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-//                    Log.d("category log", response.body().toString())
+                override fun onResponse(call: Call<JsonObject>,
+                                        response: Response<JsonObject>) {
+
                     val myJson = response.body()
                     val myData = myJson!!.getAsJsonArray("data")
-
-                    Log.d("My Log", myData.size().toString())
                     myAdapter = CategoryAdapter(this@MainActivity)
 
                     val arrayItem = ArrayList<CategoryModel>()
@@ -84,6 +90,8 @@ class MainActivity : AppCompatActivity() {
 
                     product_recycleview.layoutManager = LinearLayoutManager(this@MainActivity)
                     product_recycleview.adapter = myAdapter
+
+                    progressDialog.dismiss();
                 }
 
 
