@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                    Log.d("category log", response.body().toString())
+//                    Log.d("category log", response.body().toString())
                     val myJson = response.body()
                     val myData = myJson!!.getAsJsonArray("data")
 

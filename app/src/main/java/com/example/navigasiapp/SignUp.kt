@@ -58,8 +58,9 @@ class SignUp : AppCompatActivity() {
             .register(name, email, password)
         requestCall.enqueue(object : Callback<DefaultResponse>{
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
-                Toast.makeText(baseContext, "Proses Register gagal ",
+                Toast.makeText(baseContext, "Proses Register gagal ya ",
                     Toast.LENGTH_SHORT).show()
+                Log.d("log register", t.toString())
             }
 
             override fun onResponse(

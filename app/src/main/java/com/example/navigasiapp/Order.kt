@@ -3,13 +3,22 @@ package com.example.navigasiapp
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
+import com.example.navigasiapp.api.ApiClient
+import com.example.navigasiapp.api.ApiInterface
+import com.example.navigasiapp.model.DefaultResponse
 import kotlinx.android.synthetic.main.activity_order.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.net.URL
 
 class Order : AppCompatActivity() {
 
@@ -31,15 +40,18 @@ class Order : AppCompatActivity() {
         var intent      = intent
         val aId         = intent.getIntExtra("pId", 0)
         val aProduct    = intent.getStringExtra("pProduct")
-        val aHarga      = intent.getIntExtra("pHarga", 0)
-        val aImg        = intent.getIntExtra("pImg", 0)
+        val aPrice      = intent.getIntExtra("pPrice", 0)
+        val aImg        = intent.getStringExtra("pImg")
 
         actionBar.setTitle("Order " +aProduct)
         //id pada activity_order.xml
         OrdId.text          = aId.toString()
         OrdProduct.text     = aProduct
-        OrdPrice.text       = aHarga.toString()
-        imageOrd.setImageResource(aImg)
+        OrdPrice.text       = aPrice.toString()
+        val url: URL = URL("http://ins2.teknisitik.com/"+aImg)
+        val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+        imageOrd.setImageBitmap(bmp)
+//        imageOrd.setImageResource(aImg)
 
         fun display(number: Int) {
             val displayInteger = findViewById<View>(R.id.JmlOrd) as TextView
@@ -89,24 +101,60 @@ class Order : AppCompatActivity() {
     fun addProductToCart(){
         sharedPref = getSharedPreferences("SharePref", Context.MODE_PRIVATE)
 
-        var idUser = sharedPref.getInt("idUser", 0)
+        var token = sharedPref.getString("token","")!!
         var idProduct = OrdId.text.toString().toInt()
-        var nmProduct = OrdProduct.text.toString()
-        var harga = OrdPrice.text.toString().toInt()
-        var totalBeli = JmlOrd.text.toString().toInt()
-        if(totalBeli == 0){
+//        var nmProduct = OrdProduct.text.toString()
+        var price = OrdPrice.text.toString().toInt()
+        var qty = JmlOrd.text.toString().toInt()
+        if(qty == 0){
             return Toast.makeText(this, "Jumlah beli masih kosong", Toast.LENGTH_SHORT).show()
         }else{
-            val databaseHandler: DatabaseHandler_bk = DatabaseHandler_bk(this)
-            val status = databaseHandler.addProductToCart(CartModel(0, idUser, idProduct, nmProduct, harga, totalBeli))
-            if(status > -1) {
-                Toast.makeText(this, "Data Product tersimpan di keranjang", Toast.LENGTH_LONG).show()
+//            val databaseHandler: DatabaseHandler_bk = DatabaseHandler_bk(this)
+//            val status = databaseHandler.addProductToCart(CartModel(0, idUser, idProduct, nmProduct, harga, totalBeli))
+//            if(status > -1) {
+//                Toast.makeText(this, "Data Product tersimpan di keranjang", Toast.LENGTH_LONG).show()
 //                etUsername.text.clear()
 //                etPassword.text.clear()
 //                etPassword2.text.clear()
-            }else{
-                Toast.makeText(this, "Data Product gagal tersimpan di keranjang", Toast.LENGTH_SHORT).show()
-            }
+//            }else{
+//                Toast.makeText(this, "Data Product gagal tersimpan di keranjang", Toast.LENGTH_SHORT).show()
+//            }
+            var apiInterface: ApiInterface = ApiClient()
+                .getApiClient()!!
+                .create(ApiInterface::class.java)
+            var requestCall: Call<DefaultResponse> = apiInterface
+                .addProductToCart("Bearer "+token, idProduct, price, qty)
+
+            requestCall.enqueue(object : Callback<DefaultResponse> {
+                override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                    Toast.makeText(baseContext, "Data gagal ditambahkan ke keranjang ",
+                        Toast.LENGTH_SHORT).show()
+                    Log.d("log register", t.toString())
+                }
+
+                override fun onResponse(
+                    call: Call<DefaultResponse>,
+                    response: Response<DefaultResponse>
+                ) {
+                    Log.d("logggg", response.toString())
+                    if(response.isSuccessful){
+                        Toast.makeText(this@Order,
+                            "Data berhasil ditambahkan ke keranjang",
+                            Toast.LENGTH_SHORT).show()
+                        Log.d("log", response.body()?.success.toString())
+                        Log.d("Log ordersss", response.body()?.message.toString())
+                        val intent = Intent(this@Order,
+                            MainActivity::class.java)
+                        startActivity(intent)
+                    }else{
+                        Toast.makeText(this@Order,
+                            "Data gagal ditambahkan ke keranjang ya ",
+                            Toast.LENGTH_SHORT).show()
+                        Log.d("log order", response.body().toString()+token)
+                    }
+                }
+
+            })
         }
     }
     override fun onSupportNavigateUp(): Boolean {

@@ -3,7 +3,7 @@ package com.example.navigasiapp.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApiClient {
+class ApiClient(val token: String = "") {
     public var BASE_URL: String = "http://ins2.teknisitik.com/api/v1/"
     public var retrofit: Retrofit? = null
 

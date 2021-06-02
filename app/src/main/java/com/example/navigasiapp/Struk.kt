@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.navigasiapp.model.CartModel
 //import kotlinx.android.synthetic.main.activity_data_pembeli.txtHarga
 //import kotlinx.android.synthetic.main.activity_data_pembeli.txtNamaProduk
 //import kotlinx.android.synthetic.main.activity_data_pembeli.txtQty
@@ -44,20 +45,20 @@ class Struk : AppCompatActivity() {
 
         var idUser = sharedPref.getInt("idUser", 0)
 
-        val databaseHandler: DatabaseHandler_bk = DatabaseHandler_bk(this)
-        val cardList: ArrayList<CartModel> = databaseHandler.viewCartsByUser(idUser)
-        myAdapter = strukCartAdapter(this)
-        myAdapter!!.setData(cardList)
-        var totalItem: Int = 0
-        var totalHargaPerItem: Int = 0
-        var grandTotal: Int = 0
-        cardList.forEach {
-            totalHargaPerItem = (it.totalProduct)*(it.priceofProduct)
-            totalItem += it.totalProduct
-            grandTotal += totalHargaPerItem
-        }
-        tvTotalProduct.text = totalItem.toString()
-        tvTotalHarga.text = grandTotal.toString()
+//        val databaseHandler: DatabaseHandler_bk = DatabaseHandler_bk(this)
+////        val cardList: ArrayList<CartModel> = databaseHandler.viewCartsByUser(idUser)
+//        myAdapter = strukCartAdapter(this)
+//        myAdapter!!.setData(cardList)
+//        var totalItem: Int = 0
+//        var totalHargaPerItem: Int = 0
+//        var grandTotal: Int = 0
+//        cardList.forEach {
+//            totalHargaPerItem = (it.totalProduct)*(it.priceofProduct)
+//            totalItem += it.totalProduct
+//            grandTotal += totalHargaPerItem
+//        }
+//        tvTotalProduct.text = totalItem.toString()
+//        tvTotalHarga.text = grandTotal.toString()
 
         rv_cart.layoutManager = LinearLayoutManager(this)
         rv_cart.adapter = myAdapter

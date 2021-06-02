@@ -1,14 +1,11 @@
 package com.example.navigasiapp
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_product.view.*
+import com.example.navigasiapp.model.CartModel
 import kotlinx.android.synthetic.main.cart_row.view.*
 
 class strukCartAdapter (val context: Context) : RecyclerView.Adapter<strukCartAdapter.ViewHolder>(){

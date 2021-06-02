@@ -1,17 +1,15 @@
-package com.example.navigasiapp
+package com.example.navigasiapp.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_product.view.*
+import com.example.navigasiapp.R
+import com.example.navigasiapp.model.CartModel
 import kotlinx.android.synthetic.main.cart_row.view.*
 
-class cartAdapter (val context: Context) : RecyclerView.Adapter<cartAdapter.ViewHolder>(){
+class CartAdapter (val context: Context) : RecyclerView.Adapter<CartAdapter.ViewHolder>(){
     var arrayList = ArrayList<CartModel>()
 
     fun setData(arrayList: ArrayList<CartModel>) {
@@ -33,7 +31,7 @@ class cartAdapter (val context: Context) : RecyclerView.Adapter<cartAdapter.View
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.cart_row, parent, false)
-        return cartAdapter.ViewHolder(v)
+        return ViewHolder(v)
     }
 
     override fun getItemCount(): Int {

@@ -53,19 +53,19 @@ class ProductAdapter (val context: Context) : RecyclerView.Adapter<ProductAdapte
         holder.itemView.setOnClickListener() {
             val model = arrayList.get(position)
 
-//            var gId: Int = model.idProduct
-//            var gProduct: String = model.nmProduct
-//            var gDesc: String    = model.dsProduct
-//            var gHarga: Int      = model.priceofProduct.toString().toInt()
-//            var gImg: Int        = model.picProduct
+            var gId: Int = model.id
+            var gProduct: String = model.name
+            var gDesc: String    = model.description
+            var gPrice: Int      = model.price
+            var gImg: String        = model.image_link
 //
-//            val intent = Intent(context, Order::class.java)
-//            intent.putExtra("pId", gId)
-//            intent.putExtra("pProduct", gProduct)
-//            intent.putExtra("pDesc", gDesc)
-//            intent.putExtra("pHarga", gHarga)
-//            intent.putExtra("pImg", gImg)
-//            context.startActivity(intent)
+            val intent = Intent(context, Order::class.java)
+            intent.putExtra("pId", gId)
+            intent.putExtra("pProduct", gProduct)
+            intent.putExtra("pDesc", gDesc)
+            intent.putExtra("pPrice", gPrice)
+            intent.putExtra("pImg", gImg)
+            context.startActivity(intent)
         }
     }
 

@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.navigasiapp.model.CartModel
 import com.example.navigasiapp.model.ProductModel
 import com.example.navigasiapp.model.UserModel
 
@@ -207,55 +208,62 @@ class DatabaseHandler_bk(context: Context) : SQLiteOpenHelper(context, DATABASE_
 //        }
 //        return productList
 //    }
-    fun viewCartsByUser(userId: Int): ArrayList<CartModel> {
-        val cartList: ArrayList<CartModel> = ArrayList<CartModel>()
+//    fun viewCartsByUser(userId: Int): ArrayList<CartModel> {
+//        val cartList: ArrayList<CartModel> = ArrayList<CartModel>()
+//
+//        val selectQuery = "SELECT * FROM $TABLE_CARTS WHERE $KEY_CART_USER_ID=$userId"
+//
+//        val db = this.readableDatabase
+//
+//        var cursor: Cursor? = null
+//
+//        try {
+//            cursor = db.rawQuery(selectQuery, null)
+//        }catch (e: SQLiteException){
+//            db.execSQL(selectQuery)
+//            return ArrayList()
+//        }
+//        var id: Int
+//        var idUser: Int
+//        var idProduct: Int
+//        var nmProduct: String
+//        var priceofProduct: Int
+//        var totalProduct: Int
+//
+//        if(cursor.moveToFirst()){
+//            do{
+//                id = cursor.getInt(cursor.getColumnIndex(KEY_CART_ID))
+//                idUser = cursor.getInt(cursor.getColumnIndex(KEY_CART_USER_ID))
+//                idProduct = cursor.getInt(cursor.getColumnIndex(KEY_CART_PRODUCT_ID))
+//                nmProduct = cursor.getString(cursor.getColumnIndex(KEY_CART_PRODUCT_NAME))
+//                priceofProduct = cursor.getInt(cursor.getColumnIndex(KEY_CART_PRODUCT_PRICE))
+//                totalProduct = cursor.getInt(cursor.getColumnIndex(KEY_CART_PRODUCT_TOTAL))
+//                val product = CartModel(
+//                    id,
+//                    idUser,
+//                    idProduct,
+//                    nmProduct,
+//                    priceofProduct,
+//                    totalProduct
+//                )
+//                cartList.add(product)
+//            }while (cursor.moveToNext())
+//        }
+//        return cartList
+//    }
 
-        val selectQuery = "SELECT * FROM $TABLE_CARTS WHERE $KEY_CART_USER_ID=$userId"
-
-        val db = this.readableDatabase
-
-        var cursor: Cursor? = null
-
-        try {
-            cursor = db.rawQuery(selectQuery, null)
-        }catch (e: SQLiteException){
-            db.execSQL(selectQuery)
-            return ArrayList()
-        }
-        var id: Int
-        var idUser: Int
-        var idProduct: Int
-        var nmProduct: String
-        var priceofProduct: Int
-        var totalProduct: Int
-
-        if(cursor.moveToFirst()){
-            do{
-                id = cursor.getInt(cursor.getColumnIndex(KEY_CART_ID))
-                idUser = cursor.getInt(cursor.getColumnIndex(KEY_CART_USER_ID))
-                idProduct = cursor.getInt(cursor.getColumnIndex(KEY_CART_PRODUCT_ID))
-                nmProduct = cursor.getString(cursor.getColumnIndex(KEY_CART_PRODUCT_NAME))
-                priceofProduct = cursor.getInt(cursor.getColumnIndex(KEY_CART_PRODUCT_PRICE))
-                totalProduct = cursor.getInt(cursor.getColumnIndex(KEY_CART_PRODUCT_TOTAL))
-                val product = CartModel(id, idUser, idProduct, nmProduct, priceofProduct, totalProduct)
-                cartList.add(product)
-            }while (cursor.moveToNext())
-        }
-        return cartList
-    }
-
-    fun addProductToCart(cart: CartModel):Long {
-        val db = this.writableDatabase
-
-        val contentValues = ContentValues()
-        contentValues.put(KEY_CART_USER_ID, cart.idUser)
-        contentValues.put(KEY_CART_PRODUCT_ID, cart.idProduct)
-        contentValues.put(KEY_CART_PRODUCT_NAME, cart.nmProduct)
-        contentValues.put(KEY_CART_PRODUCT_PRICE, cart.priceofProduct)
-        contentValues.put(KEY_CART_PRODUCT_TOTAL, cart.totalProduct)
-
-        var success = db.insert(TABLE_CARTS, null, contentValues)
-        return success
-        db.close()
-    }
+//    fun addProductToCart(cart: CartModel):Long {
+//        val db = this.writableDatabase
+//
+//        val contentValues = ContentValues()
+//        contentValues.put(KEY_CART_USER_ID, cart.idUser)
+//        contentValues.put(KEY_CART_PRODUCT_ID, cart.idProduct)
+//        contentValues.put(KEY_CART_PRODUCT_NAME, cart.nmProduct)
+//        contentValues.put(KEY_CART_PRODUCT_PRICE, cart.priceofProduct)
+//        contentValues.put(KEY_CART_PRODUCT_TOTAL, cart.totalProduct)
+//
+//        var success = db.insert(TABLE_CARTS, null, contentValues)
+//        return success
+//        db.close()
+//    }
 }
